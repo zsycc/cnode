@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="components/header/header.js"></script>
+    <script src="components/bodyy/bodyy.js"></script>
+    <script src="components/author/author.js"></script>
+    <script src="../jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div>
+    <style>
+        #app{
+            width: 70%;
+            margin-left: 55px;
+            height: 1000px;
+        }
+        .all{
+            width: 100%;
+            border-radius: 155px;
+        }
+        .wd_header{
+            padding: 2px;
+            border-bottom: 1px solid gainsboro;
+            background-color: #F6F6F6;
+        }
+        .wd_breadcrumb{
+            list-style: none;
+        }
+        .wd_breadcrumb a{
+            color: greenyellow;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .wd_breadcrumb .wd_divider{
+            color: #D7CECC;
+        }
+        .wd_userinfo{
+            padding: 15px;
+            background-color: white;
+        }
+        .wd_userinfo .wd_user_avatar img{
+            width: 35px;
+            height: 35px;
+            border-radius: 5px;
+        }
+        .wd_dark{
+            color: #7780A6;
+            vertical-align: top;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        .wd_user_profile{
+            margin: 10px auto;
+        }
+        .wd_col_fade{
+            color: #ABABAB;
+
+        }
+
+        .center{
+            margin-top: 20px;
+            width: 100%;
+            height: 310px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+        .center_top{
+            padding: 2px;
+            background-color: #F6F6F6;
+            border-bottom: 1px solid gainsboro;
+        }
+        .center_top p{
+            font-size: 13px;
+            margin-left: 5px;
+        }
+        .cell{
+            padding: 10px;
+            vertical-align: center;
+            background-color: #F6F6F6;
+            border-bottom: 1px solid gainsboro;
+            position: relative;
+        }
+        .left_{
+            width: 80%;
+        }
+        .left_ a{
+            margin-left: 60px;
+            text-decoration: none;
+            text-overflow: ellipsis;
+            color: #0088CC;
+        }
+        .left_ a{
+            max-width: 60%;
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 16px;
+            line-height: 30px;
+
+        }
+        .left_ a:hover{
+            text-decoration: underline  #005580;
+            color: #005580;
+        }
+        .img{
+            width: 32px;
+            height: 32px;
+            border-radius: 5px;
+            vertical-align: middle;
+        }
+        .right_{
+            width: 20%;
+            position: absolute;
+            right: -50px;
+            margin-top: -30px;
+            z-index: 111;
+        }
+        .right_ img{
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        .bot{
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 105px;
+        }
+        .bot_top{
+            padding: 2px;
+            background-color: #F6F6F6;
+            border-bottom: 1px solid gainsboro;
+        }
+        .bot_top p{
+            font-size: 13px;
+            margin-left: 5px;
+        }
+        .cel{
+            padding: 10px;
+            vertical-align: center;
+            background-color: #F6F6F6;
+            border-bottom: 1px solid gainsboro;
+            position: relative;
+        }
+        ._left{
+            width: 80%;
+        }
+        ._left a{
+            margin-left: 60px;
+            text-decoration: none;
+            text-overflow: ellipsis;
+            color: #0088CC;
+        }
+        ._left a{
+            max-width: 60%;
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 16px;
+            line-height: 30px;
+
+        }
+        .img{
+            width: 32px;
+            height: 32px;
+            border-radius: 5px;
+            vertical-align: middle;
+        }
+        ._right{
+            width: 20%;
+            position: absolute;
+            right: -50px;
+            margin-top: -30px;
+            z-index: 111;
+        }
+        ._right img{
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+    </style>
+    <div id="app" style="padding: 5px 0;">
+        <wd v-bind:content="content"></wd>
+        <wdd v-bind:content="content"></wdd>
+        <ssy v-bind:content="content"></ssy>
+    </div>
+</div>
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                content:{}
+            },
+            created(){
+                $.ajax({
+                    type:'get',
+                    //请求地址
+                    url:'https://cnodejs.org/api/v1/user/XadillaX',
+                    //默认是true ,设置为false就是在URL后面添加一个随机的时间戳,保证浏览器不从本身的缓存抓取,去重新
+                    //请求服务器,低版本IE 必须设置此属性
+                    cache:false,
+                    //确定请求方式后自动转换传输方式
+                    // data:{
+                    //
+                    // },
+                    dataType: 'json',
+                    //请求假死,超过时间管理
+                    timeout:3000,
+                    //错误处理
+                    error:function (XMLHttpRequest,textStatus,error) {
+                    },
+                    success:(data)=>{
+                        this.content = data;
+                        console.log(data);
+                    }
+                })
+            }
+
+        })
+
+    </script>
+</body>
+</html>
