@@ -1,0 +1,55 @@
+html{
+    min-width: 1200px;
+}
+body{
+    background-color: gainsboro;
+    min-width: 1200px;
+}
+.h-b-div>div{
+    display: inline-block;
+    margin-right: 40px;
+}
+.z-w{
+    background-color: white;
+    width: 60%;
+    margin-left:5%;
+    margin-top: 7%;
+    display: inline-block;
+    padding: 15px;
+}
+.pin{
+    background-color: white;
+    width: 60%;
+    margin-left:5%;
+    margin-top: 7%;
+    display: inline-block;
+    padding: 25px;
+}
+.pin>div{
+    border-bottom: 1px solid #c9c9c9;
+    margin: 15px 0;
+}
+.p-img{
+    width: 40px;
+    height: 40px;
+}
+.p-sp{
+    vertical-align: top;
+    line-height: 40px;
+    font-weight: 800;
+    color: #aeaeae;
+    margin-left: 25px;
+}
+.p_div>div>p>img{
+    width: 80%;
+}
+.p_div>div>pre{
+    width:100%;
+    overflow: hidden;
+}
+.zu_di>div{
+    margin-top: 20px;
+}
+.two{
+    margin-top: -70px;
+}

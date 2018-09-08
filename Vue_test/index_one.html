@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="jquery-1.8.3.min.js"></script>
+    <script src="components/header/tip.js"></script>
+    <script src="components/header/header_one.js"></script>
+    <script src="components/header/cream.js"></script>
+    <script src="components/header/share.js"></script>
+    <script src="components/header/ask.js"></script>
+    <script src="cc/cc_1.js"></script>
+    <script src="cc/cc_2.js"></script>
+    <script src="components/author/author.js"></script>
+    <script src="components/bodyy/bodyy.js"></script>
+    <script src="components/header/header.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="h_left">
+                <img src="components/header/img/cnode.png" alt="">
+                <input type="text" class="search">
+            </div>
+            <div class="h_right">
+                <a href="">首页</a>
+                <a href="">新手入门</a>
+                <a href="">API</a>
+                <a href="">关于</a>
+                <a href="">注册</a>
+                <a href="">登录</a>
+            </div>
+        </div>
+    </div>
+    <div id="app_z">
+        <div id="app_m" v-if="page">
+            <tip :tip="tip" :tip_index="tip_index" :tip_2="tip_2" :tip_="tip_" @tip-index-bgc="tip_click" :tip_click="tip_click" :tip_wrap="tip_wrap"></tip>
+            <component v-if="page" v-bind:is="isComponent" :content="content" :tip="tip" :tip_index="tip_index" :tip_2="tip_2" :tip_="tip_" @title-index="title_author" :title_author="title_author" @title-index-bgc="title_click" :title_click="title_click"></component>
+        </div>
+        <div class="two" v-if="detailed">
+            <lzl class="z-w" v-bind:count="count"></lzl>
+            <ping class="pin" v-bind:count="count"></ping>
+        </div>
+        <div v-if="author" class="top_">
+            <wd v-bind:contents="contents"></wd>
+            <wdd v-bind:con="con"></wdd>
+            <ssy v-bind:con="con"></ssy>
+        </div>
+    </div>
+    <div class="bottom_right">
+        <img src="components/header/img/one.png"/>
+        <img src="components/header/img/two.png"/>
+        <img src="components/header/img/three.png"/>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>RSS</span>
+            <span>|</span>
+            <span>源码地址</span>
+        </p>
+        <p>CNode 社区为国内最专业的 Node.js 开源技术社区，致力于 Node.js 的技术研究。</p>
+        <p>
+            <span>服务器赞助商为</span>
+            <img src="components/header/img/nav-logo.png"/>
+            <span> ，存储赞助商为</span>
+            <img src="components/header/img/七牛云.png"/>
+            <span>，由</span>
+            <img src="components/header/img/alibaba.png"/>
+            <span> 提供应用性能服务。</span>
+        </p>
+        <p>
+            <span>新手搭建 Node.js 服务器，推荐使用无需备案的</span>
+            <a href="#">DigitalOcean(https://www.digitalocean.com/)</a>
+        </p>
+    </div>
+    <script>
+        let vm = new Vue({
+            el:'#app_z',
+            data:{
+                con:{},
+                content:{},
+                contents:{},
+                count:{},
+                tip_wrap:true,
+                tip_:true,
+                tip_2:true,
+                tip_index:0,
+                title_index:0,
+                tip:['全部','精华','分享','问答','招聘','客户端测试'],
+                isComponent:'a-list',
+                page:true,
+                author:false,
+                detailed:false
+            },
+            created(){
+                let link = document.createElement('link');
+                link.rel = "stylesheet";
+                link.href="components/header/header_one.css"
+                document.getElementsByTagName('head')[0].appendChild(link);
+                $.ajax({
+                    type:'get',
+                    url:'https://cnodejs.org/api/v1/topics?page=1&limit=40',//  请求地址
+                    cache:false,
+                    //  jsonp 处理
+                    dataType:'json',
+                    timeout:3000,
+                    success:(data)=>{
+                        this.content = data;
+                        console.log(data);
+                    }
+                });
+                let link_one = document.createElement('link');
+                link_one.rel = "stylesheet";
+                link_one.href="cc/cc.css";
+                document.getElementsByTagName('head')[0].appendChild(link_one);
+                $.ajax({
+                    type:'get',
+                    url:'https://cnodejs.org/api/v1/topic/5b223c1d5cd02be640901490?mdrender=true',
+                    success: (data)=> {
+                        this.count = data;
+                    }
+                });
+                let sdn = document.createElement('link');
+                sdn.rel = 'stylesheet';
+                sdn.type = 'text/css';
+                sdn.href ='header.css' ;
+                document.getElementsByTagName('head')[0].appendChild(sdn);
+                $.ajax({
+                    type:'get',
+                    //请求地址
+                    url:'https://cnodejs.org/api/v1/user/XadillaX',
+                    //默认是true ,设置为false就是在URL后面添加一个随机的时间戳,保证浏览器不从本身的缓存抓取,去重新
+                    //请求服务器,低版本IE 必须设置此属性
+                    cache:false,
+                    //确定请求方式后自动转换传输方式
+                    // data:{
+                    //
+                    // },
+                    dataType: 'json',
+                    //请求假死,超过时间管理
+                    timeout:3000,
+                    //错误处理
+                    error:function (XMLHttpRequest,textStatus,error) {
+                    },
+                    success:(data)=>{
+                        this.con = data;
+                        console.log(data);
+                    }
+                })
+                $.ajax({
+                    type:'get',
+                    //请求地址
+                    url:'https://cnodejs.org/api/v1/user/XadillaX',
+                    //默认是true ,设置为false就是在URL后面添加一个随机的时间戳,保证浏览器不从本身的缓存抓取,去重新
+                    //请求服务器,低版本IE 必须设置此属性
+                    cache:false,
+                    //确定请求方式后自动转换传输方式
+                    // data:{
+                    //
+                    // },
+                    dataType: 'json',
+                    //请求假死,超过时间管理
+                    timeout:3000,
+                    //错误处理
+                    error:function (XMLHttpRequest,textStatus,error) {
+                    },
+                    success:(data)=>{
+                        this.contents = data;
+                        console.log(data);
+                    }
+                })
+            },
+            methods:{
+                tip_click(data){
+                    this.tip_index = data;
+                    console.log(data);
+                    if(this.tip_index == 0){
+                        this.isComponent = 'a-list';
+                    }else if(this.tip_index == 1){
+                        this.isComponent = 'cream';
+                    }else if(this.tip_index == 2){
+                        this.isComponent = 'share';
+                    }else if(this.tip_index == 3){
+                        this.isComponent = 'ask';
+                    }
+                },
+                title_click(){
+                    this.page = false;
+                    this.detailed = true;
+                    this.author = false;
+                },
+                title_author(){
+                    this.page = false;
+                    this.detailed = false;
+                    this.author = true;
+                },
+                title_page(){
+                    this.page = true;
+                    this.detailed = false;
+                    this.author = false;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
